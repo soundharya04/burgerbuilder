@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Auxil from "../../hocComp/Auxil";
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -53,13 +54,13 @@ class BurgerBuilder extends Component {
 
   render() {
     return (
-      <div>
+      <Auxil>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
         />
-      </div>
+      </Auxil>
     );
   }
 }

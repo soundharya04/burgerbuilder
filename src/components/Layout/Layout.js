@@ -1,11 +1,11 @@
 import React from "react";
-
+import Auxil from "../../hocComp/Auxil";
 import "./Layout.css";
 const layout = (props) => (
-  <div>
+  <Auxil>
     <div>Toolbar,sideDrawar,Backdrop</div>
     <main className="content">{props.children}</main>
-  </div>
+  </Auxil>
 );
 
 export default layout;
