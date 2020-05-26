@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Order from "../../components/Orders/Order";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hocComp/withErrorHandler/withErrorHandler";
+import Spinner from "../../components/UI/Spinner/Spinner";
 class Orders extends Component {
   state = {
     orders: [],
@@ -29,20 +30,22 @@ class Orders extends Component {
         this.setState({ loading: false });
       });
   }
+
   render() {
-    return (
-      <div>
-        {this.state.orders.map((order) => {
-          return (
-            <Order
-              key={order.id}
-              ingredients={order.ingredients}
-              price={order.price}
-            />
-          );
-        })}
-      </div>
-    );
+    let order = <Spinner />;
+    if (!this.state.loading) {
+      order = this.state.orders.map((order) => {
+        return (
+          <Order
+            key={order.id}
+            ingredients={order.ingredients}
+            price={order.price}
+          />
+        );
+      });
+    }
+
+    return <div>{order}</div>;
   }
 }
 
