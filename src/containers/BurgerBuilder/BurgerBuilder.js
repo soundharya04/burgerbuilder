@@ -9,13 +9,10 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hocComp/withErrorHandler/withErrorHandler";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import * as bbactions from "../../store/actions/index";
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
-    totalPrice: 4,
-    purchasable: false,
     purchasing: false,
     loading: false,
   };
@@ -54,21 +51,7 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinue = () => {
-    /*
-     */
-
-    const queryParams = [];
-    for (let i in this.props.ings) {
-      queryParams.push(
-        encodeURIComponent(i) + "=" + encodeURIComponent(this.props.ings[i])
-      );
-    }
-    queryParams.push("price=" + this.state.totalPrice);
-    const queryString = queryParams.join("&");
-    this.props.history.push({
-      pathname: "/checkout",
-      search: "?" + queryString,
-    });
+    this.props.history.push("/checkout");
   };
 
   render() {
@@ -130,16 +113,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIngredientAdded: (ingName) =>
-      dispatch({
-        type: actionTypes.ADD_INGREDIENT,
-        ingredientName: ingName,
-      }),
+    onIngredientAdded: (ingName) => dispatch(bbactions.addIngredient(ingName)),
     onIngredientRemoved: (ingName) =>
-      dispatch({
-        type: actionTypes.REMOVE_INGREDIENT,
-        ingredientName: ingName,
-      }),
+      dispatch(bbactions.removeIngredient(ingName)),
   };
 };
 
